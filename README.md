@@ -16,4 +16,4 @@ VML will be hosting it's 1st Client-Side Challenge on July 30th at 12PM at the 2
 
 You will need to RSVP by emailing [Ryan Doll](mailto:rdoll@vml.com) before the day of the event, so we can have a proper headcount for pizza.  If you have any questions, just email Ryan.
 
-Good luck to some of those competing!
+Good luck to all those competing!
