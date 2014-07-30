@@ -12,7 +12,7 @@ VML will be hosting it's 1st Client-Side Challenge on July 30th at 12PM at the 2
 - Once the task is complete, submit a pull request back to the original GitHub repo with your solution.
 - 1st dev to submit a working solution given the task requirements wins!
 - There will be a prize for 1st place, as well as a trophy! 
-- Some challenges might be CSS only, or JavaScript only, or both!  
+- Some challenges might be CSS only, or JavaScript only, or both! SCARY!  
 
 You will need to RSVP by emailing [Ryan Doll](mailto:rdoll@vml.com) before the day of the event, so we can have a proper headcount for pizza.  If you have any questions, just email Ryan.
 
