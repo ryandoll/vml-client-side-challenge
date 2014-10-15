@@ -76,7 +76,6 @@ function countingMinutes(strArr){
 		}
 
 		return day - (first - second);
-	return 0;
 
 }
 
