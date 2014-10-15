@@ -35,36 +35,18 @@ function palindrome(str){
 
 function coinDeterminer(num){
 
-    var coins = [1,5,10,25];
+    var coins = [25,10,5,1];
 
     var quarters = 0, dimes = 0, nickles = 0, pennies=0;
 
-    if( num >= 25) {
-        quarters = Math.floor(num / 25); 
-        num = num % 25;
-        //console.log(num);
-    }
 
-    if (num >= 10 ) {
-        dimes = Math.floor(num / 10);
-        num = num % 10;
-        //console.log(num);
-    }
-
-    if( num >= 5 ) {
-        nickles = Math.floor(num / 5);
-        num = num % 5;
-        //console.log(num);
-    }
-
-    if( num >= 1) {
-        pennies = num;
-        //console.log(num);
-    }
-
-    console.log([quarters, dimes, nickles, pennies]);
-
-    return quarters+dimes+nickles+pennies;
+    return coins.reduce(function (memo, coin, arr) {
+        if( num >= coin) {
+            memo += Math.floor(num / coin);
+            num = num % coin;
+        }
+        return memo;
+    }, 0);
 }
 
 function countingMinutes(strArr){
@@ -84,19 +66,17 @@ function countingMinutes(strArr){
 
     var minutes;
 
-    if ( endArr[0] === '12' ) {
-        endArr[0] === 0;
+    function convertToInt(num) {
+        var int =  parseInt(num, 10);
+        if (int === 12) {
+            int = 0;
+        }
+        return int;
     }
 
-    startArr = startArr.map(function (num) {
-        return parseInt(num, 10);
-    });
+    startArr = startArr.map(convertToInt);
+    endArr = endArr.map(convertToInt);
 
-    endArr = endArr.map(function (num) {
-        return parseInt(num, 10);
-    });
-
-    //console.log(startM, endM);
 
     if ( !!~startM.indexOf('p') ) {
         startArr[0] += 12;
@@ -106,21 +86,18 @@ function countingMinutes(strArr){
         endArr[0] += 12;
     }
 
-    console.log(startArr, endArr);
-
-    //if( endArr[1] > startArr[1] ) {
     minutes = endArr[1] - startArr[1];
-    //}
 
-    //if( endArr[0] > strArr[0] ) {
-        
+    if ( minutes < 0 ) {
+        minutes += 60;
+        --endArr[0];
+    }
+
     minutes += (endArr[0] - startArr[0]) * 60;
-    //}
     if(minutes < 0) {
         minutes += 1440;
     }
 
-    console.log(minutes);
     return minutes;
 
 }
