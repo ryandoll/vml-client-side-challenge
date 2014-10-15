@@ -1,61 +1,80 @@
-// All JS code goes in this file.
 (function (window, undefined) {
-  var feedUrl = 'http://finance.yahoo.com/rss/headline?s=goog,appl,yhoo,msft';
 
-  var req = new XMLHttpRequest();
+	function createCORSRequest(method, url){
+		var xhr = new XMLHttpRequest();
+		if ("withCredentials" in xhr){
+			xhr.open(method, url, true);
+		} else if (typeof XDomainRequest != "undefined"){
+			xhr = new XDomainRequest();
+			xhr.open(method, url);
+		} else {
+			xhr = null;
+		}
+		return xhr;
+	}
 
-  var navLinks = document.getElementById('nav__links');
-  var iframed = document.getElementById('iframed');
-  console.log(navLinks);
+	function addClass(el, className){
+		if (el.classList) {
+			el.classList.add(className);
+		}
+		else {
+			el.className += ' ' + className;
+		}
+	}
 
-  function reqListener () {
-    console.log(this.responseXML);
-    var items = this.responseXML.querySelectorAll('item');
-    var links = this.responseXML.querySelectorAll('item link');
-    links = Array.prototype.slice.call(links, null);
-    items = Array.prototype.slice.call(items, null);
+	function removeClass(el, className) {
+		if (el.classList) {
+			el.classList.remove(className);
+		}
+		else {
+			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+		}
+	}
 
-    window.links = links;
+	// Request the xml feed
+	var request = createCORSRequest("get", "http://finance.yahoo.com/rss/headline?s=goog,appl,yhoo,msft");
 
-    items.forEach(function(item, i) {
-      //console.log('here', item.childNodes);
-      var title = item.childNodes[0];
-      var link = item.childNodes[1];
-      var anchor = document.createElement('a');
-      anchor.href = link.innerHTML;
-      anchor.innerHTML = title.innerHTML;
-      anchor.onclick = function(e) {
-        console.log(e.target);
-        e.preventDefault();
+	if(request) {
+		// Grab list and iframe#portal
+		var list = document.getElementById("response");
+		var portal = document.getElementById('portal');
+		var items;
 
-        iframed.src = e.target.href;
-      }
-      var li = document.createElement('li');
-      li.appendChild(anchor);
-      navLinks.appendChild(li);
-    });
-    /*
-    links.forEach(function(link, i) {
-      //console.log(link.innerHTML);
-      var anchor = document.createElement('a');
-      anchor.href = link.innerHTML;
-      anchor.innerHTML = i;
-      anchor.onclick = function(e) {
-        console.log(e.target);
-        e.preventDefault();
+		// Process data when response is received
+		request.onload = function(){
+			items = request.responseXML.querySelectorAll('item');
+			items = Array.prototype.slice.call(items, null);
+			
+			// Output list-group links
+			items.forEach(function(item) {
+				var title = item.childNodes[0];
+				var link = item.childNodes[1];
+				var anchor = document.createElement('a');
+				addClass(anchor, 'list-group-item');
+				anchor.href = link.innerHTML;
+				anchor.innerHTML = title.innerHTML;
+				list.appendChild(anchor);
 
-        iframed.src = e.target.href;
-      }
-      var li = document.createElement('li');
-      li.appendChild(anchor);
-      navLinks.appendChild(li);
-    });
-    */
-    window.resp = this;
-  }
-
-  req.onload = reqListener;
-  req.open('get', feedUrl, true);
-  req.send();
-
+				anchor.onclick = function(e) {
+					e.preventDefault();
+					// Update page displayed in portal
+					portal.src = e.target.href;
+					// Remove active class from sibling list-group-item
+					var siblings = document.querySelectorAll('.list-group-item');
+					siblings = Array.prototype.slice.call(siblings, null);
+					siblings.forEach(function(sibling){
+						removeClass(sibling, 'active');
+					});
+					// Add active class to current target
+					addClass(e.target, 'active');
+				};
+			});
+			
+			// Set portal source to first list item
+			portal.src = items[0].childNodes[1].innerHTML;
+			// Add active class to first list item
+			addClass(document.querySelectorAll('.list-group-item')[0], 'active');
+		};
+		request.send();
+	}
 })(this);
