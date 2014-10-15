@@ -49,8 +49,12 @@ function parseTime(str) {
 	var all = /(\d+):(\d+)(am|pm)/.exec(str).slice(1);
 	console.log(all);
 	var addHours = all[2] === 'pm';
+	var hour = parseInt(all[0]);
+	if(hour === 12 && all[2] === 'am') {
+		hour = 0;
+	}
 	var sep = {
-		hour: parseInt(all[0]) + (addHours ? 12 : 0),
+		hour: hour + (addHours ? 12 : 0),
 		minute: parseInt(all[1])
 	};
 
