@@ -11,6 +11,12 @@ describe('palindrome', function(){
     it('Anne, I vote more cars race Rome-to-Vienna - TRUE', function(){
         assert.equal(true, solutions.palindrome('Anne, I vote more cars race Rome-to-Vienna'));
     });
+    it('Amor, Roma - TRUE', function(){
+        assert.equal(true, solutions.palindrome('Amor, Roma'));
+    });
+    it('Taco cat - TRUE', function(){
+        assert.equal(true, solutions.palindrome('Taco cat'));
+    });
 });
 
 describe('coinDeterminer', function(){
@@ -18,10 +24,16 @@ describe('coinDeterminer', function(){
         assert.equal(3, solutions.coinDeterminer(16));
     });
     it('29 should return 5', function(){
-        assert.equal(29, solutions.coinDeterminer(5));
+        assert.equal(5, solutions.coinDeterminer(29));
     });
     it('78 should return 6', function(){
-        assert.equal(78, solutions.coinDeterminer(6));
+        assert.equal(6, solutions.coinDeterminer(78));
+    });
+    it('23 should return 5', function(){
+        assert.equal(5, solutions.coinDeterminer(23));
+    });
+    it('66 should return 5', function(){
+        assert.equal(5, solutions.coinDeterminer(66));
     });
 });
 
@@ -34,5 +46,11 @@ describe('countingMinutes', function(){
     });
     it('12:00pm-12:00pm should return 1440', function(){
         assert.equal(1440, solutions.countingMinutes('12:00pm-12:00pm'));
+    });
+    it('2:00pm-5:45pm should return 225', function(){
+        assert.equal(225, solutions.countingMinutes('2:00pm-5:45pm'));
+    });
+    it('12:40am-3:00am should return 140', function(){
+        assert.equal(140, solutions.countingMinutes('12:40am-3:00am'));
     });
 });
