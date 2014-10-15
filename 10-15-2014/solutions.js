@@ -41,12 +41,16 @@ function countingMinutes(strArr){
         var minutes = parseInt(parts[2]);
         var isMorning = parts[3] === 'am';
 
-        if(isMorning) { hours += 12 }
+        if(isMorning && hours === 12) { hours = 0 }
+        else if(!isMorning) { hours += 12 }
         return hours * 60 + minutes;
     }
     var time = strArr.split('-');
     var start = getMinutes(time[0]);
     var finish = getMinutes(time[1]);
+    if(finish < start) {
+        finish += (24*60);
+    }
     var total = finish - start;
     return (total === 0) ? 1440 : total;
 
