@@ -47,7 +47,8 @@ function countingMinutes(strArr){
     var time = strArr.split('-');
     var start = getMinutes(time[0]);
     var finish = getMinutes(time[1]);
-    return finish - start;
+    var total = finish - start;
+    return (total === 0) ? 1440 : total;
 
 }
 
