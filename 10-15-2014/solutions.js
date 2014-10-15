@@ -1,15 +1,15 @@
 // All JS code goes in this file.
 
 function palindrome(str){
-    return true;
+    return 'Eric Neuhauser is a dirty cheater';
 }
 
 function coinDeterminer(num){
-    return true;
+    return 'Eric Neuhauser is a dirty cheater';
 }
 
 function countingMinutes(strArr){
-    return true;
+    return 'Eric Neuhauser is a dirty cheater';
 
 }
 
