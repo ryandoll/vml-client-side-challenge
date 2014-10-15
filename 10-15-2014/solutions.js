@@ -2,13 +2,13 @@
 
 function palindrome(str){
 
-		if(typeof str !== 'String') { return false;}
-		str = str.filter(function(c) { return /[a-zA-Z]/.exec(c) !== null; });
-		console.log(str);
-		str = str.toLowerCase();
+		if(typeof str !== 'string') { return false;}
 
 		if(str === '') { return true;}
-		var len = str.length;
+		str = str.toLowerCase();
+		str = str.split('').filter(function(c) { return /[a-zA-Z]/.exec(c) !== null; });
+
+	var len = str.length;
 		var isP = true;
 		str.forEach(function(l, index) {
 			if(l !== str[(len-1)-index]) {
